@@ -1,9 +1,25 @@
 spring:
+  profiles:
+    active: dev
   application:
-    name: rest-api
-
-springdoc:
+    name: movify
+  main:
+    allow-bean-definition-overriding: true
+  jpa:
+    open-in-view: false
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.xml
+    default-schema: MOVIFY
   swagger-ui:
     path: /swagger-ui.html
-  packagesToScan:
-    nl.duckacademy.rest_api.rest
+    packagesToScan:
+      com.ricardocreates.infra.rest
+  cache:
+    jcache:
+      config: classpath:ehcache.xml
+  mvc:
+    format:
+      date-time: yyyy-MM-dd HH:mm:ss
+      date: yyyy-MM-dd
+      time: HH:mm:ss

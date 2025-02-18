@@ -59,12 +59,11 @@ components:
           type: number
           example: 7.1
         runtime:
-          type: string
-          format: date-time
-          example: "2019-02-19T05:40:20-01:00"
+          type: integer
+          example: "120"
         language:
           type: string
-    GenericError:
+    GenericErrorResponse:
       type: object
       properties:
         errorCode:
@@ -79,6 +78,6 @@ paths:
   /movies/search:
     $ref: 'movie/movie-api.yml#/paths/~1movies~1search'
   /movies/{id}:
-    $ref: 'movie/movie-api.yml#/paths/~1movies~1{id}'
+    $ref: 'movie/movie-api.yml#/paths/~1movies~1%7Bid%7D'
 
 
