@@ -1,0 +1,42 @@
+paths:
+  /movies/popular:
+    get:
+      tags:
+        - movies-controller
+      summary: Retrieve the top 50 popular movies.
+      description: Retrieve the top 50 popular movies.
+      operationId: getMoviesPopular
+      parameters:
+        - name: flightNumber
+          in: query
+          description: flight number
+          required: true
+          schema:
+            type: integer
+            example: 7539
+        - name: flightDate
+          in: query
+          description: flight date
+          required: true
+          schema:
+            type: string
+            format: date-time
+            example: "2019-02-19T05:40:20-01:00"
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/MovieInfo"
+        '401':
+          description: Bad Parameter
+          content:
+            application/json:
+              schema:
+                "$ref": "../movies-api.yml#/components/schemas/GenericErrorResponse"
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                "$ref": "../movies-api.yml#/components/schemas/GenericErrorResponse"

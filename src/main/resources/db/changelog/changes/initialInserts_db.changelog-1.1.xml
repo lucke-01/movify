@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:pro="http://www.liquibase.org/xml/ns/pro" 
+xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd
+http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd">
+	<changeSet id="initialInsertsTable_db.changelog-1.1" author="Ricardo">
+		<insert schemaName="COMPANY" tableName="BRAND">
+			<column name="id"  value="1"/>  
+	        <column name="name"  value="ZARA"/>  
+	    </insert>
+	    
+	    <insert schemaName="COMPANY" tableName="PRODUCT">
+			<column name="id"  value="35455"/>  
+	        <column name="name"  value="HP Computer"/>  
+	    </insert>
+	    
+	    <insert schemaName="COMPANY" tableName="PRICE">  
+	        <column name="start_date" value="2020-06-14 00:00:00" />
+			<column name="end_date" value="2020-12-31 23:59:59" />
+			<column name="price_list" value="1" />
+			<column name="product_id" value="35455" />
+			<column name="priority" value="0" />
+			<column name="product_price" value="35.50" />
+			<column name="curr" value="EUR" />
+			<column name="brand_id" value="1" />
+	    </insert>
+	    <insert schemaName="COMPANY" tableName="PRICE">  
+	        <column name="start_date" value="2020-06-14 15:00:00" />
+			<column name="end_date" value="2020-06-14 18:30:00" />
+			<column name="price_list" value="2" />
+			<column name="product_id" value="35455" />
+			<column name="priority" value="1" />
+			<column name="product_price" value="25.45" />
+			<column name="curr" value="EUR" />
+			<column name="brand_id" value="1" />
+	    </insert>
+	    <insert schemaName="COMPANY" tableName="PRICE">  
+	        <column name="start_date" value="2020-06-15 00:00:00" />
+			<column name="end_date" value="2020-06-15 11:00:00" />
+			<column name="price_list" value="3" />
+			<column name="product_id" value="35455" />
+			<column name="priority" value="1" />
+			<column name="product_price" value="30.50" />
+			<column name="curr" value="EUR" />
+			<column name="brand_id" value="1" />
+	    </insert>
+	    
+	    <insert schemaName="COMPANY" tableName="PRICE">  
+	        <column name="start_date" value="2020-06-15 16:00:00" />
+			<column name="end_date" value="2020-12-31 23:59:59" />
+			<column name="price_list" value="4" />
+			<column name="product_id" value="35455" />
+			<column name="priority" value="1" />
+			<column name="product_price" value="38.95" />
+			<column name="curr" value="EUR" />
+			<column name="brand_id" value="1" />
+	    </insert>
+	    
+	    <rollback />
+	</changeSet>
+</databaseChangeLog>

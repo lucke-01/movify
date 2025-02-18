@@ -1,0 +1,84 @@
+openapi: 3.1.0
+info:
+  title: Movies database
+  description: Gives access to database of movies
+  version: 1.0.0
+servers:
+  - url: '{protocol}://localhost:8080/api/'
+    variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: https
+    description: Localhost
+  - url: '{protocol}://movies.ricardocreates.com/api/'
+    variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: https
+    description: Dev
+components:
+  schemas:
+    MovieInfo:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        title:
+          type: string
+        releaseDate:
+          type: string
+          format: date-time
+          example: "2019-02-19T05:40:20-01:00"
+        averageRate:
+          type: number
+          description: movie rating
+          example: 7.1
+    MovieDetail:
+      type: object
+      properties:
+        title:
+          type: string
+        releaseDate:
+          type: string
+          format: date-time
+          example: "2019-02-19T05:40:20-01:00"
+        fullPosterUrl:
+          type: string
+        overview:
+          type: string
+        genres:
+          type: string
+          items:
+            type: string
+        averageRate:
+          type: number
+          example: 7.1
+        runtime:
+          type: string
+          format: date-time
+          example: "2019-02-19T05:40:20-01:00"
+        language:
+          type: string
+    GenericError:
+      type: object
+      properties:
+        errorCode:
+          type: string
+        message:
+          type: string
+        description:
+          type: string
+paths:
+  /movies/popular:
+    $ref: 'movie/movie-api.yml#/paths/~1movies~1popular'
+  /movies/search:
+    $ref: 'movie/movie-api.yml#/paths/~1movies~1search'
+  /movies/{id}:
+    $ref: 'movie/movie-api.yml#/paths/~1movies~1{id}'
+
+

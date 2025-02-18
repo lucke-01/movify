@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: rest-api
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  packagesToScan:
+    nl.duckacademy.rest_api.rest
