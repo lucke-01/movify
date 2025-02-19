@@ -6,9 +6,9 @@ evaluate skills in rest api, jpa, spring boot, desing etc..
 
 ## Features
 
-### Cache with Ehcache
+### Cache
 
-This application uses ehcache to cache
+This application uses cache in memory
 
 ### Mappers with mapstruct
 

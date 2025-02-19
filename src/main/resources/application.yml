@@ -15,10 +15,6 @@ spring:
     path: /swagger-ui.html
     packagesToScan:
       com.ricardocreates.infra.rest
-  cache:
-    jcache:
-      config: classpath:ehcache.xml
-      provider: org.ehcache.jsr107.EhcacheCachingProvider
   mvc:
     format:
       date-time: yyyy-MM-dd HH:mm:ss
