@@ -2,6 +2,8 @@ package com.ricardocreates.movify.application.operation.movie;
 
 import com.ricardocreates.movify.domain.entity.MovieDetail;
 import com.ricardocreates.movify.domain.entity.MovieInfo;
+import com.ricardocreates.movify.domain.entity.OrderBy;
+import com.ricardocreates.movify.domain.entity.OrderType;
 import com.ricardocreates.movify.domain.operation.MovieOperation;
 import com.ricardocreates.movify.domain.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +32,7 @@ public class MovieOperationImpl implements MovieOperation {
             value = "searchMoviesCache",
             key = "#title+ '-' +#orderBy + '-' + #orderType")
     @Override
-    public List<MovieInfo> searchMovies(String title, String orderBy, String orderType) {
+    public List<MovieInfo> searchMovies(String title, OrderBy orderBy, OrderType orderType) {
         return movieRepository.searchMoviesByTitle(title, orderBy, orderType);
     }
 }

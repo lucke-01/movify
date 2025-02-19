@@ -91,8 +91,23 @@ components:
           type: string
         message:
           type: string
+        errors:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ErrorResponse'
+    ErrorResponse:
+      type: object
+      properties:
         description:
           type: string
+        message:
+          type: string
+    OrderBy:
+      type: string
+      enum: [ title, releaseDate, language, rating ]
+    OrderType:
+      type: string
+      enum: [ asc, desc ]
 paths:
   /movies/popular:
     get:
@@ -109,6 +124,7 @@ paths:
           schema:
             type: string
             example: "yxrf-1234-hcgt"
+            minLength: 1
         - name: page
           in: query
           description: current page
@@ -116,6 +132,7 @@ paths:
           schema:
             type: integer
             example: "0"
+            minimum: 0
         - name: size
           in: query
           description: number of elements by page
@@ -123,6 +140,7 @@ paths:
           schema:
             type: integer
             example: "5"
+            minimum: 0
       responses:
         '200':
           description: Successful
@@ -163,6 +181,7 @@ paths:
           schema:
             type: string
             example: "yxrf-1234-hcgt"
+            minLength: 1
         - name: title
           in: query
           description: Movie title
@@ -170,20 +189,19 @@ paths:
           schema:
             type: string
             example: "Cars"
+            minLength: 2
         - name: orderBy
           in: query
           description: Order by movie attribute
           required: false
           schema:
-            type: string
-            enum: [ title, releaseDate, language, rating ]
+            "$ref": "#/components/schemas/OrderBy"
         - name: orderType
           in: query
           description: Order asc or desc
           required: false
           schema:
-            type: string
-            enum: [ asc, desc ]
+            "$ref": "#/components/schemas/OrderType"
       responses:
         '200':
           description: successful
@@ -227,6 +245,7 @@ paths:
           schema:
             type: string
             example: "yxrf-1234-hcgt"
+            minLength: 1
         - name: id
           in: path
           description: movie id

@@ -12,7 +12,7 @@ spring:
       database-platform: org.hibernate.dialect.H2Dialect
       defer-datasource-initialization: false
   liquibase:
-    contexts: faker
+    contexts: faker,test
 logging:
   level:
     org:

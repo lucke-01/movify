@@ -3,7 +3,7 @@
                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
-    <changeSet id="initialInsertsTable_db.changelog-1.1" author="Ricardo">
+    <changeSet id="initialInsertsTable_db.changelog-1.1" author="Ricardo" context="!test">
         <loadData file="data/movies.csv"
                   relativeToChangelogFile="true"
                   tableName="MOVIES" schemaName="MOVIFY"/>
@@ -11,6 +11,19 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
                   relativeToChangelogFile="true"
                   tableName="GENRES" schemaName="MOVIFY"/>
         <loadData file="data/movies_genres.csv"
+                  relativeToChangelogFile="true"
+                  tableName="MOVIES_GENRES" schemaName="MOVIFY"/>
+        <rollback/>
+    </changeSet>
+    <!-- only for testing -->
+    <changeSet id="initialInsertsTable_db.changelog-1.1_tests" author="Ricardo" context="test">
+        <loadData file="data_test/movies.csv"
+                  relativeToChangelogFile="true"
+                  tableName="MOVIES" schemaName="MOVIFY"/>
+        <loadData file="data_test/genres.csv"
+                  relativeToChangelogFile="true"
+                  tableName="GENRES" schemaName="MOVIFY"/>
+        <loadData file="data_test/movies_genres.csv"
                   relativeToChangelogFile="true"
                   tableName="MOVIES_GENRES" schemaName="MOVIFY"/>
         <rollback/>

@@ -49,7 +49,6 @@ public class ApiKeyAuthFilter implements Filter {
         GenericErrorResponseDTO genericResponse = new GenericErrorResponseDTO();
         genericResponse.setErrorCode(String.valueOf(HttpStatus.UNAUTHORIZED.value()));
         genericResponse.setMessage("Valid API key should be provided");
-        genericResponse.setDescription("Contact with administrator to set your key");
         String genericResponseString = objectMapper.writeValueAsString(genericResponse);
         response.getWriter().write(genericResponseString);
         response.getWriter().flush();

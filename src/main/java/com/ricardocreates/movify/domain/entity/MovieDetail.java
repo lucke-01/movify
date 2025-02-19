@@ -1,14 +1,18 @@
 package com.ricardocreates.movify.domain.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class MovieDetail {
-    private Integer id;
+    private Long id;
 
     private String title;
 

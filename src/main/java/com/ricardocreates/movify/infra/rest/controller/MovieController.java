@@ -1,14 +1,15 @@
 package com.ricardocreates.movify.infra.rest.controller;
 
+import com.ricardocreates.movify.domain.entity.OrderBy;
+import com.ricardocreates.movify.domain.entity.OrderType;
 import com.ricardocreates.movify.domain.operation.MovieOperation;
 import com.ricardocreates.movify.infra.rest.controller.mapper.MovieDtoMapper;
 import com.swagger.client.codegen.rest.MoviesApi;
-import com.swagger.client.codegen.rest.model.MovieDetailDTO;
-import com.swagger.client.codegen.rest.model.MovieInfoDTO;
-import com.swagger.client.codegen.rest.model.PageableMovieInfoDTO;
+import com.swagger.client.codegen.rest.model.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -36,9 +37,13 @@ public class MovieController implements MoviesApi {
 
     @Override
     public ResponseEntity<List<MovieInfoDTO>> searchMovies(String apiKey, String title,
-                                                           String orderBy, String orderType) {
+                                                           @Validated OrderByDTO orderBy, OrderTypeDTO orderType) {
+        OrderBy orderByDomain = movieDtoMapper.orderByToDomain(orderBy);
+        OrderType orderTypeDomain = movieDtoMapper.orderTypeToDomain(orderType);
         return ResponseEntity.ok(
-                movieDtoMapper.movieInfoListFromDomain(movieOperation.searchMovies(title, orderBy, orderType))
+                movieDtoMapper.movieInfoListFromDomain(
+                        movieOperation.searchMovies(title, orderByDomain, orderTypeDomain)
+                )
         );
     }
 }

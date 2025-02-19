@@ -2,10 +2,9 @@ package com.ricardocreates.movify.infra.rest.controller.mapper;
 
 import com.ricardocreates.movify.domain.entity.MovieDetail;
 import com.ricardocreates.movify.domain.entity.MovieInfo;
-import com.swagger.client.codegen.rest.model.MovieDetailDTO;
-import com.swagger.client.codegen.rest.model.MovieInfoDTO;
-import com.swagger.client.codegen.rest.model.PageDTO;
-import com.swagger.client.codegen.rest.model.PageableMovieInfoDTO;
+import com.ricardocreates.movify.domain.entity.OrderBy;
+import com.ricardocreates.movify.domain.entity.OrderType;
+import com.swagger.client.codegen.rest.model.*;
 import org.mapstruct.Mapper;
 import org.springframework.data.domain.Page;
 
@@ -14,13 +13,9 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface MovieDtoMapper {
 
-    MovieInfo movieInfoToDomain(MovieInfoDTO movieInfoDto);
-
     MovieInfoDTO movieInfoFromDomain(MovieInfo movieInfo);
 
     List<MovieInfoDTO> movieInfoListFromDomain(List<MovieInfo> movieInfo);
-
-    MovieDetail movieDetailToDomain(MovieDetailDTO couponDto);
 
     MovieDetailDTO movieDetailFromDomain(MovieDetail movieDetail);
 
@@ -42,4 +37,12 @@ public interface MovieDtoMapper {
 
         return pageableMovieInfoDTO;
     }
+
+    OrderBy orderByToDomain(OrderByDTO orderByDTO);
+
+    OrderByDTO orderByFromDomain(OrderBy orderBy);
+
+    OrderType orderTypeToDomain(OrderTypeDTO orderTypeDTO);
+
+    OrderTypeDTO orderTypeFromDomain(OrderType orderType);
 }
