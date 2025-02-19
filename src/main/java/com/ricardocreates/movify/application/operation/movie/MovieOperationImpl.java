@@ -5,6 +5,7 @@ import com.ricardocreates.movify.domain.entity.MovieInfo;
 import com.ricardocreates.movify.domain.operation.MovieOperation;
 import com.ricardocreates.movify.domain.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,9 @@ public class MovieOperationImpl implements MovieOperation {
         return movieRepository.findTop50ByRating(page, size);
     }
 
+    @Cacheable(
+            value = "searchMoviesCache",
+            key = "#title+ '-' +#orderBy + '-' + #orderType")
     @Override
     public List<MovieInfo> searchMovies(String title, String orderBy, String orderType) {
         return movieRepository.searchMoviesByTitle(title, orderBy, orderType);

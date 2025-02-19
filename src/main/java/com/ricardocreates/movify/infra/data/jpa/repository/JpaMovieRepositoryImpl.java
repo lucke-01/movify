@@ -32,7 +32,7 @@ public class JpaMovieRepositoryImpl implements MovieRepository {
     public Page<MovieInfo> findTop50ByRating(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         return movieJpaMapper.convertToDtoPage(dataMovieRepository
-                .findTop50ByOrderByRatingDesc(pageable)
+                .findTop50MoviesPaginated(pageable.getPageSize(), pageable.getOffset()), pageable
         );
     }
 

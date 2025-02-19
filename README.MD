@@ -102,3 +102,9 @@ Open the following URL
 ``` browser
 http://localhost:8080/h2-console
 ```
+
+Introduce this as jdbc url:
+
+``` input
+jdbc:h2:mem:appDb
+```

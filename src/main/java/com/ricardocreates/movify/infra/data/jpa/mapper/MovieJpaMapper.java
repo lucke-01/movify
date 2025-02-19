@@ -8,6 +8,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Set;
@@ -27,8 +28,9 @@ public interface MovieJpaMapper {
 
     List<MovieInfo> movieInfoListToDomain(List<MovieEntity> movieEntity);
 
-    default Page<MovieInfo> convertToDtoPage(Page<MovieEntity> movieInfoPage) {
-        final List<MovieInfo> listMovieInfo = movieInfoListToDomain(movieInfoPage.getContent());
-        return new PageImpl<>(listMovieInfo, movieInfoPage.getPageable(), movieInfoPage.getTotalElements());
+    default Page<MovieInfo> convertToDtoPage(List<MovieEntity> movies, Pageable pageable) {
+        final List<MovieInfo> listMovieInfo = movieInfoListToDomain(movies);
+
+        return new PageImpl<>(listMovieInfo, pageable, 50);
     }
 }

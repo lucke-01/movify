@@ -30,7 +30,7 @@ public class MovieController implements MoviesApi {
     @Override
     public ResponseEntity<PageableMovieInfoDTO> getPopularMovies(String apiKey, Integer page, Integer size) {
         return ResponseEntity.ok(
-                movieDtoMapper.movieInfoListFromDomain(movieOperation.findTop50MoviesByRating(page, size))
+                movieDtoMapper.pageMovieInfoToPageableMovieInfoDTO(movieOperation.findTop50MoviesByRating(page, size))
         );
     }
 

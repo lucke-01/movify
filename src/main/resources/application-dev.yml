@@ -11,3 +11,20 @@ spring:
     jpa:
       database-platform: org.hibernate.dialect.H2Dialect
       defer-datasource-initialization: false
+  liquibase:
+    contexts: faker
+logging:
+  level:
+    org:
+      springframework:
+        web: INFO
+      hibernate:
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+          nodeValue: TRACE
+        SQL: DEBUG
+    com:
+      ricardocreates: TRACE
+    root: WARN

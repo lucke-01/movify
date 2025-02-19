@@ -44,12 +44,9 @@ components:
         size:
           type: integer
           format: int32
-        number:
-          type: integer
-          format: int32
         totalElements:
           type: integer
-          format: int32
+          format: int64
         totalPages:
           type: integer
           format: int32
@@ -98,10 +95,174 @@ components:
           type: string
 paths:
   /movies/popular:
-    $ref: 'movie/movie-api.yml#/paths/~1movies~1popular'
+    get:
+      tags:
+        - movies-controller
+      summary: Retrieve the top 50 popular movies.
+      description: Retrieve the top 50 popular movies.
+      operationId: getPopularMovies
+      parameters:
+        - name: api_key
+          in: query
+          description: API KEY
+          required: true
+          schema:
+            type: string
+            example: "yxrf-1234-hcgt"
+        - name: page
+          in: query
+          description: current page
+          required: true
+          schema:
+            type: integer
+            example: "0"
+        - name: size
+          in: query
+          description: number of elements by page
+          required: true
+          schema:
+            type: integer
+            example: "5"
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PageableMovieInfo"
+        '400':
+          description: Bad parameter
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/GenericErrorResponse"
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/GenericErrorResponse"
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/GenericErrorResponse"
   /movies/search:
-    $ref: 'movie/movie-api.yml#/paths/~1movies~1search'
-  /movies/{id}:
-    $ref: 'movie/movie-api.yml#/paths/~1movies~1%7Bid%7D'
+    get:
+      tags:
+        - movies-controller
+      summary: "Search for movies by title, and optionally sort or filter results."
+      description: "Search for movies by title, and optionally sort or filter results."
+      operationId: searchMovies
+      parameters:
+        - name: api_key
+          in: query
+          description: API KEY
+          required: true
+          schema:
+            type: string
+            example: "yxrf-1234-hcgt"
+        - name: title
+          in: query
+          description: Movie title
+          required: true
+          schema:
+            type: string
+            example: "Cars"
+        - name: orderBy
+          in: query
+          description: Order by movie attribute
+          required: false
+          schema:
+            type: string
+            enum: [ title, releaseDate, language, rating ]
+        - name: orderType
+          in: query
+          description: Order asc or desc
+          required: false
+          schema:
+            type: string
+            enum: [ asc, desc ]
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MovieInfo"
+        '400':
+          description: Bad parameter
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/GenericErrorResponse"
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/GenericErrorResponse"
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/GenericErrorResponse"
 
+  /movies/{id}:
+    get:
+      tags:
+        - movies-controller
+      summary: "Retrieve the movie detail"
+      description: "Retrieve detailed information about a specific movie."
+      operationId: getMovieDetail
+      parameters:
+        - name: api_key
+          in: query
+          description: API KEY
+          required: true
+          schema:
+            type: string
+            example: "yxrf-1234-hcgt"
+        - name: id
+          in: path
+          description: movie id
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/MovieDetail"
+        '400':
+          description: Bad parameter
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/GenericErrorResponse"
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/GenericErrorResponse"
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/GenericErrorResponse"
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/GenericErrorResponse"
 
