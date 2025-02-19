@@ -5,6 +5,7 @@ import com.ricardocreates.movify.domain.entity.MovieInfo;
 import com.ricardocreates.movify.domain.operation.MovieOperation;
 import com.ricardocreates.movify.domain.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,8 +21,8 @@ public class MovieOperationImpl implements MovieOperation {
     }
 
     @Override
-    public List<MovieInfo> findTop50MoviesByRating() {
-        return movieRepository.findTop50ByRating();
+    public Page<MovieInfo> findTop50MoviesByRating(Integer page, Integer size) {
+        return movieRepository.findTop50ByRating(page, size);
     }
 
     @Override

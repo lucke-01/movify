@@ -2,6 +2,8 @@ package com.ricardocreates.movify.infra.data.jpa.repository;
 
 import com.ricardocreates.movify.infra.data.jpa.model.MovieEntity;
 import jakarta.annotation.Nonnull;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,7 +19,7 @@ public interface DataMovieRepository extends JpaRepository<MovieEntity, Long> {
     @Nonnull
     Optional<MovieEntity> findById(@Nonnull Long id);
 
-    List<MovieEntity> findTop50ByOrderByRatingDesc();
+    Page<MovieEntity> findTop50ByOrderByRatingDesc(Pageable pageable);
 
 
     List<MovieEntity> findByTitleContaining(String title, Sort sort);

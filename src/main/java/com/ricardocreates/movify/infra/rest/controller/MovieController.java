@@ -5,6 +5,7 @@ import com.ricardocreates.movify.infra.rest.controller.mapper.MovieDtoMapper;
 import com.swagger.client.codegen.rest.MoviesApi;
 import com.swagger.client.codegen.rest.model.MovieDetailDTO;
 import com.swagger.client.codegen.rest.model.MovieInfoDTO;
+import com.swagger.client.codegen.rest.model.PageableMovieInfoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -27,9 +28,9 @@ public class MovieController implements MoviesApi {
     }
 
     @Override
-    public ResponseEntity<List<MovieInfoDTO>> getPopularMovies(String apiKey) {
+    public ResponseEntity<PageableMovieInfoDTO> getPopularMovies(String apiKey, Integer page, Integer size) {
         return ResponseEntity.ok(
-                movieDtoMapper.movieInfoListFromDomain(movieOperation.findTop50MoviesByRating())
+                movieDtoMapper.movieInfoListFromDomain(movieOperation.findTop50MoviesByRating(page, size))
         );
     }
 

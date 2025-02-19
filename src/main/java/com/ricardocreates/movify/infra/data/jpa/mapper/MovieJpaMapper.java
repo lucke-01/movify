@@ -6,6 +6,8 @@ import com.ricardocreates.movify.infra.data.jpa.model.GenreEntity;
 import com.ricardocreates.movify.infra.data.jpa.model.MovieEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 import java.util.List;
 import java.util.Set;
@@ -19,9 +21,14 @@ public interface MovieJpaMapper {
     @Mapping(target = "fullPosterUrl", source = "posterUrl")
     @Mapping(target = "averageRate", source = "rating")
     MovieDetail toDomain(MovieEntity movieEntity);
-    
+
     @Mapping(target = "averageRate", source = "rating")
     MovieInfo movieInfoToDomain(MovieEntity movieEntity);
 
     List<MovieInfo> movieInfoListToDomain(List<MovieEntity> movieEntity);
+
+    default Page<MovieInfo> convertToDtoPage(Page<MovieEntity> movieInfoPage) {
+        final List<MovieInfo> listMovieInfo = movieInfoListToDomain(movieInfoPage.getContent());
+        return new PageImpl<>(listMovieInfo, movieInfoPage.getPageable(), movieInfoPage.getTotalElements());
+    }
 }

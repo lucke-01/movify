@@ -5,6 +5,9 @@ import com.ricardocreates.movify.domain.entity.MovieInfo;
 import com.ricardocreates.movify.domain.repository.MovieRepository;
 import com.ricardocreates.movify.infra.data.jpa.mapper.MovieJpaMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,9 +29,10 @@ public class JpaMovieRepositoryImpl implements MovieRepository {
     }
 
     @Override
-    public List<MovieInfo> findTop50ByRating() {
-        return movieJpaMapper.movieInfoListToDomain(dataMovieRepository
-                .findTop50ByOrderByRatingDesc()
+    public Page<MovieInfo> findTop50ByRating(Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return movieJpaMapper.convertToDtoPage(dataMovieRepository
+                .findTop50ByOrderByRatingDesc(pageable)
         );
     }
 

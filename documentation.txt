@@ -1,0 +1,2 @@
+Common error in open-api codegen
+    https://github.com/OpenAPITools/openapi-generator/issues/2701

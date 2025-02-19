@@ -14,27 +14,39 @@ paths:
           schema:
             type: string
             example: "yxrf-1234-hcgt"
+        - name: page
+          in: query
+          description: current page
+          required: true
+          schema:
+            type: integer
+            example: "0"
+        - name: size
+          in: query
+          description: number of elements by page
+          required: true
+          schema:
+            type: integer
+            example: "5"
       responses:
         '200':
           description: successful
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "../movies-api.yml#/components/schemas/MovieInfo"
+                $ref: "../movify-api.yml/#/components/schemas/PageableMovieInfo"
         '401':
           description: Bad Parameter
           content:
             application/json:
               schema:
-                "$ref": "../movies-api.yml#/components/schemas/GenericErrorResponse"
+                "$ref": "../movify-api.yml#/components/schemas/GenericErrorResponse"
         '404':
           description: Not Found
           content:
             application/json:
               schema:
-                "$ref": "../movies-api.yml#/components/schemas/GenericErrorResponse"
+                "$ref": "../movify-api.yml#/components/schemas/GenericErrorResponse"
   /movies/search:
     get:
       tags:
@@ -79,19 +91,19 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "../movies-api.yml#/components/schemas/MovieInfo"
+                  $ref: "../movify-api.yml#/components/schemas/MovieInfo"
         '401':
           description: Bad Parameter
           content:
             application/json:
               schema:
-                "$ref": "../movies-api.yml#/components/schemas/GenericErrorResponse"
+                "$ref": "../movify-api.yml#/components/schemas/GenericErrorResponse"
         '404':
           description: Not Found
           content:
             application/json:
               schema:
-                "$ref": "../movies-api.yml#/components/schemas/GenericErrorResponse"
+                "$ref": "../movify-api.yml#/components/schemas/GenericErrorResponse"
   /movies/{id}:
     get:
       tags:
@@ -120,16 +132,16 @@ paths:
           content:
             application/json:
               schema:
-                "$ref": "../movies-api.yml#/components/schemas/MovieDetail"
+                "$ref": "../movify-api.yml#/components/schemas/MovieDetail"
         '401':
           description: Bad Parameter
           content:
             application/json:
               schema:
-                "$ref": "../movies-api.yml#/components/schemas/GenericErrorResponse"
+                "$ref": "../movify-api.yml#/components/schemas/GenericErrorResponse"
         '404':
           description: Not Found
           content:
             application/json:
               schema:
-                "$ref": "../movies-api.yml#/components/schemas/GenericErrorResponse"
+                "$ref": "../movify-api.yml#/components/schemas/GenericErrorResponse"
