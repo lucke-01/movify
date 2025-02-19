@@ -4,9 +4,15 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
     <changeSet id="initialInsertsTable_db.changelog-1.1" author="Ricardo">
-        <loadData file="db/changes/data/movies.csv" tableName="MOVIES" schemaName="MOVIFY"/>
-        <loadData file="db/changes/data/genres.csv" tableName="GENRES" schemaName="MOVIFY"/>
-        <!--<loadData file="data/movies_genres.csv" tableName="MOVIES_GENRES" schemaName="MOVIFY"/>-->
+        <loadData file="data/movies.csv"
+                  relativeToChangelogFile="true"
+                  tableName="MOVIES" schemaName="MOVIFY"/>
+        <loadData file="data/genres.csv"
+                  relativeToChangelogFile="true"
+                  tableName="GENRES" schemaName="MOVIFY"/>
+        <loadData file="data/movies_genres.csv"
+                  relativeToChangelogFile="true"
+                  tableName="MOVIES_GENRES" schemaName="MOVIFY"/>
         <rollback/>
     </changeSet>
 </databaseChangeLog>

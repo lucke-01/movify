@@ -20,7 +20,9 @@ paths:
           content:
             application/json:
               schema:
-                "$ref": "../movies-api.yml#/components/schemas/MovieInfo"
+                type: array
+                items:
+                  $ref: "../movies-api.yml#/components/schemas/MovieInfo"
         '401':
           description: Bad Parameter
           content:
@@ -48,13 +50,36 @@ paths:
           schema:
             type: string
             example: "yxrf-1234-hcgt"
+        - name: title
+          in: query
+          description: Movie title
+          required: true
+          schema:
+            type: string
+            example: "Cars"
+        - name: orderBy
+          in: query
+          description: Order by movie attribute
+          required: false
+          schema:
+            type: string
+            enum: [ title, releaseDate, language, rating ]
+        - name: orderType
+          in: query
+          description: Order asc or desc
+          required: false
+          schema:
+            type: string
+            enum: [ asc, desc ]
       responses:
         '200':
           description: successful
           content:
             application/json:
               schema:
-                "$ref": "../movies-api.yml#/components/schemas/MovieInfo"
+                type: array
+                items:
+                  $ref: "../movies-api.yml#/components/schemas/MovieInfo"
         '401':
           description: Bad Parameter
           content:
@@ -82,13 +107,20 @@ paths:
           schema:
             type: string
             example: "yxrf-1234-hcgt"
+        - name: id
+          in: path
+          description: movie id
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         '200':
           description: successful
           content:
             application/json:
               schema:
-                "$ref": "../movies-api.yml#/components/schemas/MovieInfo"
+                "$ref": "../movies-api.yml#/components/schemas/MovieDetail"
         '401':
           description: Bad Parameter
           content:

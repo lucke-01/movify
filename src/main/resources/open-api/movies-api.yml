@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.0.3
 info:
   title: Movies database
   description: Gives access to database of movies
@@ -27,13 +27,13 @@ components:
       properties:
         id:
           type: integer
-          format: int32
+          format: int64
         title:
           type: string
         releaseDate:
           type: string
-          format: date-time
-          example: "2019-02-19T05:40:20-01:00"
+          format: date
+          example: "2019-02-19"
         averageRate:
           type: number
           description: movie rating
@@ -45,8 +45,8 @@ components:
           type: string
         releaseDate:
           type: string
-          format: date-time
-          example: "2019-02-19T05:40:20-01:00"
+          format: date
+          example: "2019-02-19"
         fullPosterUrl:
           type: string
         overview:

@@ -109,7 +109,7 @@
                                 <interfaceOnly>true</interfaceOnly>
                                 <useJakartaEe>true</useJakartaEe>
                                 <openApiNullable>false</openApiNullable>
-                                <library>spring-boot</library>
+                                <useSpringBoot3>true</useSpringBoot3>
                             </configOptions>
                             <typeMappings>
                                 <typeMapping>OffsetDateTime=java.time.Instant</typeMapping>

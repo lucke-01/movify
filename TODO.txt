@@ -1,0 +1,8 @@
+pagination
+security api
+ehcache
+unit tests
+integration tests
+jacoco report
+docker
+aws terraform
