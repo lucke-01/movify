@@ -104,7 +104,29 @@ com.ricardocreates.movify.MovifyApplication
 
 ### Run application with docker
 
-TODO: build with docker
+Build docker image
+
+```cmd
+docker build -t movify .
+```
+
+Run image
+
+```cmd
+docker run -d -p 8081:8080 --name movify-instance movify
+```
+
+Check logs
+
+```cmd
+docker logs movify-instance
+```
+
+Check docker app is working
+
+```cmd
+http://localhost:8081/swagger-ui/index.html
+```
 
 ## USER GUIDE
 
