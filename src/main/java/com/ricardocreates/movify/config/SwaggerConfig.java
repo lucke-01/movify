@@ -10,7 +10,10 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI openAPIConfig() {
         return new OpenAPI().info(
-                new Info().title("API DOCS").description("Descripcion").version("1.0.0")
+                new Info()
+                        .title("Movify")
+                        .description("API to give access to a movies database")
+                        .version("1.0.0")
         );
     }
 }

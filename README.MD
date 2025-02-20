@@ -25,6 +25,8 @@ I used the approach of API-FIRST
 
 ### API GUI using open-api swagger UI
 
+![Swagger UI](./doc/img/swagger-ui.png "Swagger UI")
+
 This API is auto-documented using Swagger UI
 
 ### Database DDL and DML with versions using Liquibase
@@ -34,8 +36,15 @@ and to be agnostic to the type of database used
 
 ### Architecture - Hexagonal
 
+![Hexagonal architecture](./doc/img/project-structure.png "Hexagonal architecture")
+
 I decided to use hexagonal architecture,
-giving the app the possibility to adapt to any change
+giving the app the possibility to adapt to any change.
+
+Hexagonal architecture do have a lot of advantages but at the same it add some complexity.
+It also forces us to use a lot of mappers.
+
+However, it is worth for business projects and adaptable to changes.
 
 ### Data access with JPA and Spring data JPA
 
@@ -45,11 +54,23 @@ I decided to use JPA and spring data JPA
 
 I decided to use H2 to make this app runnable without a database server
 
+### Jacoco plugin to generate test coverage reports
+
+![Jacoco report](./doc/img/jacoco-coverage.png "Jacoco coverage")
+
+Test coverage is set to minimum of 90%, otherwise build will fail.
+
+To access to coverage report open this in a browser:
+
+```filesystem
+/target/jacoco-ut/index.html
+```
+
 ## Requirements
 
-JDK Java 21
+JDK Java 21 or higher
 
-Maven
+Maven 3.9.9
 
 ## Use and installation
 
@@ -75,7 +96,7 @@ mvn clean install
 
 ### RUN application in IDE:
 
-Run in IDE
+Run in IDE the following class
 
 ``` cmd
 com.ricardocreates.movify.MovifyApplication
@@ -108,3 +129,7 @@ Introduce this as jdbc url:
 ``` input
 jdbc:h2:mem:appDb
 ```
+
+### Example of use og h2 manager
+
+![H2 manager](./doc/img/h2-db-manager.png "H2 manager")
