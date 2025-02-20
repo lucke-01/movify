@@ -133,7 +133,6 @@
                             <typeMappings>
                                 <typeMapping>OffsetDateTime=java.time.Instant</typeMapping>
                             </typeMappings>
-                            <hideGenerationTimestamp>true</hideGenerationTimestamp>
                         </configuration>
                     </execution>
                 </executions>
