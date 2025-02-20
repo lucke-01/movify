@@ -6,6 +6,48 @@ evaluate skills in rest api, jpa, spring boot, desing etc..
 
 ## Features
 
+### Cloud ready with Terraform and AWS
+
+This application is dockerized and can be deployed in AWS using the following command
+
+Settings
+
+```cmd
+export TF_VAR_aws_account_id="<aws_account_id>" #setting your account id
+export TF_VAR_aws_region="eu-north-1"
+aws configure #login in aws
+```
+
+Apply in the cloud
+
+```cmd
+export TF_VAR_aws_account_id="<aws_account_id>"
+aws configure #login in aws
+cd terraform
+terraform apply #apply changes to AWS
+```
+
+Upload docker file in ECR
+
+```cmd
+#Login docker with AWS
+aws ecr get-login-password --region ${TF_VAR_aws_region} | \
+docker login --username AWS --password-stdin ${TF_VAR_aws_account_id}.dkr.ecr.${TF_VAR_aws_region}.amazonaws.com
+#Build image:
+docker build -t movify .
+#Tag image:
+docker tag movify:latest ${TF_VAR_aws_account_id}.dkr.ecr.eu-north-1.amazonaws.com/movify:latest
+#Push tagged image in ECR:
+docker push ${TF_VAR_aws_account_id}.dkr.ecr.eu-north-1.amazonaws.com/movify:latest
+#Apply Terraform with new image
+terraform apply
+```
+
+Note that the following is required
+
+- AWS CLI
+- Terraform CLI
+
 ### Cache
 
 This application uses cache in memory
