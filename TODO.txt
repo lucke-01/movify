@@ -1,3 +1,2 @@
-integration tests
 docker
 aws terraform

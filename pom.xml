@@ -212,7 +212,7 @@
                                             <counter>LINE</counter>
                                             <value>COVEREDRATIO</value>
                                             <!-- ratio set it up 0.50 for example -->
-                                            <minimum>0.70</minimum>
+                                            <minimum>0.90</minimum>
                                         </limit>
                                     </limits>
                                 </rule>
