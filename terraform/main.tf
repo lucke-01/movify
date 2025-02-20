@@ -19,6 +19,54 @@ variable "aws_account_id" {
 provider "aws" {
   region = var.aws_region
 }
+#ROLES
+resource "aws_iam_role" "ec2_role" {
+  name = "ec2_ecr_role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        }
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_policy" "ecr_access_policy" {
+  name        = "EC2ECRAccessPolicy"
+  description = "Allow EC2 to access ECR"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "ecr:GetAuthorizationToken",
+          "ecr:BatchCheckLayerAvailability",
+          "ecr:GetDownloadUrlForLayer",
+          "ecr:BatchGetImage"
+        ]
+        Resource = "*"
+      }
+    ]
+  })
+}
+resource "aws_iam_role_policy_attachment" "ecr_policy_attachment" {
+  role       = aws_iam_role.ec2_role.name
+  policy_arn = aws_iam_policy.ecr_access_policy.arn
+}
+
+resource "aws_iam_instance_profile" "ec2_profile" {
+  name = "ec2_instance_profile"
+  role = aws_iam_role.ec2_role.name
+}
+#END ROLES
 
 resource "aws_security_group" "ec2_sg" {
   name        = "terraform-sg"
@@ -37,6 +85,12 @@ resource "aws_security_group" "ec2_sg" {
     protocol  = "tcp"
     cidr_blocks = ["0.0.0.0/0"]  # Allows HTTP access
   }
+  ingress {
+    from_port = 8080
+    to_port   = 8080
+    protocol  = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]  # Allows HTTP access
+  }
 
   egress {
     from_port = 0
@@ -49,10 +103,11 @@ resource "aws_security_group" "ec2_sg" {
 
 resource "aws_instance" "web" {
   ami = "ami-07a64b147d3500b6a"  # Amazon Linux 2 AMI (update if needed)
-  instance_type = "t3.micro"
+  instance_type        = "t3.micro"
   security_groups = [aws_security_group.ec2_sg.name]
   #associate_public_ip_address = true
-  user_data     = <<-EOF
+  iam_instance_profile = aws_iam_instance_profile.ec2_profile.name
+  user_data            = <<-EOF
               #!/bin/bash
               sudo yum update -y
               sudo yum install docker -y
@@ -60,7 +115,7 @@ resource "aws_instance" "web" {
               sudo systemctl enable docker
               aws ecr get-login-password --region ${var.aws_region} | docker login --username AWS --password-stdin ${var.aws_account_id}.dkr.ecr.${var.aws_region}.amazonaws.com
               docker pull ${var.aws_account_id}.dkr.ecr.${var.aws_region}.amazonaws.com/movify:latest
-              docker run -d -p 80:8080 ${var.aws_account_id}.dkr.ecr.${var.aws_region}.amazonaws.com/movify:latest
+              docker run -d -p 80:8080 --name movify-instance ${var.aws_account_id}.dkr.ecr.${var.aws_region}.amazonaws.com/movify:latest
               EOF
 
   tags = {
@@ -77,7 +132,7 @@ resource "aws_ecr_repository" "movify_repo" {
 #  instance = aws_instance.web.id
 #}
 resource "aws_eip" "web_eip" {
-  domain = "vpc"
+  instance = aws_instance.web.id
 }
 resource "aws_eip_association" "web_eip_assoc" {
   instance_id   = aws_instance.web.id

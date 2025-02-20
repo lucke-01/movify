@@ -1,0 +1,25 @@
+AWS CLI:
+    aws login:
+        aws configure
+    show instance in aws
+        aws ec2 describe-instances --instance-ids i-<instance-id>
+
+Terraform:
+    Define variables:
+        export TF_VAR_aws_account_id="<aws_account_id>"
+        export TF_VAR_aws_region="eu-north-1"
+    Docker in AWS with ECR and pushing image
+        Login docker with AWS
+            aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin <aws_account_id>.dkr.ecr.eu-north-1.amazonaws.com
+            Example:
+                aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin ${TF_VAR_aws_account_id}.dkr.ecr.eu-north-1.amazonaws.com
+        Build image:
+            docker build -t movify .
+        Tag image:
+            docker tag movify:latest ${TF_VAR_aws_account_id}.dkr.ecr.eu-north-1.amazonaws.com/movify:latest
+        Push tagged image:
+            docker push ${TF_VAR_aws_account_id}.dkr.ecr.eu-north-1.amazonaws.com/movify:latest
+
+Tutorial terraform:
+    https://dev.to/yash_sonawane25/deploying-an-ec2-instance-with-a-dockerized-app-using-terraform-3dp3
+
