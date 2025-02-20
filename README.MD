@@ -1,5 +1,9 @@
 # Movify
 
+## Author
+
+Ricardo Jara
+
 ## GOALS
 
 evaluate skills in rest api, jpa, spring boot, design etc...
