@@ -11,7 +11,7 @@
     <groupId>com.ricardocreates</groupId>
     <artifactId>movify</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>rest-api</name>
+    <name>movify</name>
     <description>CRUD for movie</description>
     <url/>
     <licenses>
