@@ -1,8 +1,19 @@
 # Movify
 
-## goal
+## GOALS
 
-evaluate skills in rest api, jpa, spring boot, desing etc..
+evaluate skills in rest api, jpa, spring boot, design etc...
+
+## Living Project
+
+You can test the project stored in AWS with the following link
+
+```cmd
+#DNS may take some time to refresh
+http://movify.ricardocreates.com:80/swagger-ui/index.html
+#IP
+http://13.51.8.203:80/swagger-ui/index.html
+```
 
 ## Features
 
